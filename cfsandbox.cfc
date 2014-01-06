@@ -15,4 +15,22 @@
   </cffunction>
   <!--- fixURL. --->
   
+  <!--- combPhoneNumbers --->
+  <cffunction name="combPhoneNumbers" access="public" returntype="string">
+   <cfargument name="strPhone1" default="" type="string">
+   <cfargument name="strPhone2" default="" type="string">
+   <cfargument name="strPhone3" default="" type="string">
+   
+   <cfset var p1 = trim(Arguments.strPhone1)>
+   <cfset var p2 = trim(Arguments.strPhone2)> 
+   <cfset var p3 = trim(Arguments.strPhone3)> 
+   <cfset var msg = "">
+    
+   <cfif len(p1) AND len(p2) AND len(p3)>
+   	<cfset msg = "(#p1#) #p2#-#p3#">
+   </cfif>
+  
+   <cfreturn msg>
+  </cffunction>  
+  <!--- combPhoneNumbers. --->
 </cfcomponent>
