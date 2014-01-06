@@ -33,4 +33,24 @@
    <cfreturn msg>
   </cffunction>  
   <!--- combPhoneNumbers. --->
+  
+  <!--- replaceListBlanks --->
+    <!--- Remove empty elements in a list --->
+  <cffunction name="replaceListBlanks" returntype="string">
+   <cfargument name="lInput" required="yes" type="string">
+   <cfargument name="delimiter" required="no" type="string" default=",">
+   <!--- 
+     The following code turn "Toronto Canada" (missing the province) to "Toronto, Canada"
+   <cfset fCityProvCountry = "">
+   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompCity), chr(30))>
+   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompProv), chr(30))>
+   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompCountry), chr(30))>   
+   
+   <cfset fCityProvCountry = replaceListBlanks(fCityProvCountry,chr(30))>
+   <cfset fCityProvCountry = REReplace(fCityProvCountry, chr(30), ", ", "ALL")>     
+   --->  
+   <cfset var lOutput = ArrayToList(ListToArray(arguments.lInput,arguments.delimiter),arguments.delimiter)>  
+   <cfreturn lOutput>
+  </cffunction>  
+  <!--- replaceListBlanks. --->  
 </cfcomponent>
