@@ -1,7 +1,16 @@
 <cfcomponent displayName="cfSandbox" extends="ajax">
+	<cfset this.fixURL = fixURL >
+	<cfset this.combPhoneNumbers = combPhoneNumbers >
+	<cfset this.replaceListBlanks = replaceListBlanks >
+	
+	<cffunction name="init" output="false">
+		<cfreturn this />
+	</cffunction>
+  
   <!--- fixURL --->
   <cffunction name="fixURL" access="public" returntype="string">
    <cfargument name="strURL" default="" type="string">
+   <!--- If origin URL doesn't have http or https, add http --->
    <cfset var msg = trim(Arguments.strURL)>
    
    <cfif len(msg)>
@@ -35,19 +44,18 @@
   <!--- combPhoneNumbers. --->
   
   <!--- replaceListBlanks --->
-    <!--- Remove empty elements in a list --->
   <cffunction name="replaceListBlanks" returntype="string">
    <cfargument name="lInput" required="yes" type="string">
    <cfargument name="delimiter" required="no" type="string" default=",">
    <!--- 
-     The following code turn "Toronto Canada" (missing the province) to "Toronto, Canada"
+     The following code turn "Toronto  Canada" (missing province) to "Toronto, Canada"
    <cfset fCityProvCountry = "">
-   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompCity), chr(30))>
-   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompProv), chr(30))>
-   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompCountry), chr(30))>   
+   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompCity), ' ')>
+   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompProv), ' ')>
+   <cfset fCityProvCountry = ListAppend(fCityProvCountry, trim(CompCountry), ' ')>   
    
-   <cfset fCityProvCountry = replaceListBlanks(fCityProvCountry,chr(30))>
-   <cfset fCityProvCountry = REReplace(fCityProvCountry, chr(30), ", ", "ALL")>     
+   <cfset fCityProvCountry = replaceListBlanks(fCityProvCountry,' ')>
+   <cfset fCityProvCountry = REReplace(fCityProvCountry, ' ', ", ", "ALL")>     
    --->  
    <cfset var lOutput = ArrayToList(ListToArray(arguments.lInput,arguments.delimiter),arguments.delimiter)>  
    <cfreturn lOutput>
